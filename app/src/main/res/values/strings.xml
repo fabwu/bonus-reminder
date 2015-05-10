@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Bonus Reminder</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="title">Bonus Karten</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="new_bonus">Neuen Bonus hizufügen</string>
+    <string name="ok">Bestätigen</string>
+    <string name="add_access_point">Neuen Access Point hinzufügen</string>
+    <string name="access_points">Access Points</string>
+
+
 </resources>
