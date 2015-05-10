@@ -19,10 +19,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".NewBonusActivity"/>
-        <activity android:name=".EditBonusActivity"/>
-        <activity android:name=".NewAccessPointActivity"/>
-
         <receiver
             android:name=".ScanResultsReceiver"
             android:enabled="true"
