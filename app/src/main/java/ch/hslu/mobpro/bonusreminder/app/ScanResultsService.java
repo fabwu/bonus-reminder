@@ -62,16 +62,14 @@ public class ScanResultsService extends Service {
         HashMap<String, String> map = new HashMap<String, String>();
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final SharedPreferences.Editor editor = prefs.edit();
-        Set<String> boni = new HashSet<String>();
-        boni = prefs.getStringSet("boni", boni);
-        for (String bonus : boni) {
-            String accessPoint = prefs.getString(bonus, "");
-            if (!accessPoint.equals("")) {
-                map.put(bonus, accessPoint);
+        Set<String> bonusSet = new HashSet<String>();
+        bonusSet = prefs.getStringSet("boni", bonusSet);
+        for (String bonus : bonusSet) {
+            String ssid = prefs.getString(bonus, "");
+            if (!ssid.equals("")) {
+                map.put(ssid, bonus);
             }
         }
-        Log.i("Map: ", map.toString());
         return map;
     }
 
