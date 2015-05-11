@@ -18,12 +18,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:height="40dp"
-        android:id="@+id/new_access_point_textfield"/>
+        android:id="@+id/new_access_point_textfield" android:inputType="text"/>
 
     <Button
         android:id="@+id/new_access_point_confirm"
         android:text="@string/ok"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" android:onClick="saveAccessPoint"/>
 
 </LinearLayout>
