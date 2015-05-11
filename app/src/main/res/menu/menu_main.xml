@@ -2,6 +2,9 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".MainActivity">
     <item android:id="@+id/start_scan"
-          android:title="@string/action_settings"
+          android:title="@string/start_scan"
+          android:showAsAction="never"/>
+    <item android:id="@+id/clear_ssids"
+          android:title="@string/clear_ssids"
           android:showAsAction="never"/>
 </menu>

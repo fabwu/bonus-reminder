@@ -94,11 +94,13 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
-        if (id == R.id.start_scan) {
-            startWifiScan();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.start_scan:
+                startWifiScan();
+                break;
+            case R.id.clear_ssids:
+                clearSsids();
         }
 
         return super.onOptionsItemSelected(item);
@@ -109,4 +111,7 @@ public class MainActivity extends Activity {
         wifiManager.startScan();
     }
 
+    private void clearSsids() {
+        stopService(new Intent(this, ScanResultsService.class));
+    }
 }

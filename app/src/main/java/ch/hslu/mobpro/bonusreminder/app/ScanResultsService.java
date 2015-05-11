@@ -6,6 +6,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.IBinder;
@@ -74,10 +76,13 @@ public class ScanResultsService extends Service {
     }
 
     private void buildBonusNotification(String bonus) {
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Notification.Builder builder = new Notification.Builder(this)
                 .setSmallIcon(R.drawable.emo_im_money_mouth)
                 .setContentTitle(bonus)
-                .setContentText("Es wurde ein Gutschein erkannt!");
+                .setVibrate(new long[] { 0, 1000, 1000, 1000, 1000})
+                .setSound(alarmSound)
+                .setContentText(getString(R.string.bonus_found));
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         int notificationId = new Random().nextInt();
         mNotificationManager.notify(notificationId, builder.build());

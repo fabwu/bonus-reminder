@@ -2,11 +2,13 @@
     <string name="app_name">Bonus Reminder</string>
 
     <string name="title">Bonus Karten</string>
-    <string name="action_settings">Start Scan</string>
+    <string name="start_scan">Start Scan</string>
+    <string name="clear_ssids">SSIDs löschen</string>
     <string name="new_bonus">Neuen Bonus hizufügen</string>
     <string name="ok">Bestätigen</string>
     <string name="add_access_point">Neuen Access Point hinzufügen</string>
     <string name="access_points">Access Points</string>
+    <string name="bonus_found">Es wurde ein Gutschein erkannt!</string>
 
 
 </resources>
