@@ -1,11 +1,15 @@
 package ch.hslu.mobpro.bonusreminder.app;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -81,10 +85,33 @@ public class MainActivity extends Activity {
 
     private Set<String> getBoni() {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final SharedPreferences.Editor editor = prefs.edit();
         Set<String> boni = new HashSet<String>();
         boni = prefs.getStringSet("boni", boni);
         return boni;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.start_scan) {
+            startScan();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    private void startScan() {
+        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        wifiManager.startScan();
     }
 
 }

@@ -2,7 +2,7 @@
     <string name="app_name">Bonus Reminder</string>
 
     <string name="title">Bonus Karten</string>
-    <string name="action_settings">Einstellungen</string>
+    <string name="action_settings">Start Scan</string>
     <string name="new_bonus">Neuen Bonus hizufügen</string>
     <string name="ok">Bestätigen</string>
     <string name="add_access_point">Neuen Access Point hinzufügen</string>
