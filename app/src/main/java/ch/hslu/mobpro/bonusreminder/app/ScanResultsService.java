@@ -10,6 +10,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.util.*;
 
@@ -59,20 +60,18 @@ public class ScanResultsService extends Service {
 
     private Map<String, String> getMap() {
         HashMap<String, String> map = new HashMap<String, String>();
-        /*map.put("hslu", "Mensagutschein");
-        map.put("UPC0039811", "Irgendein Gutschein");*/
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final SharedPreferences.Editor editor = prefs.edit();
         Set<String> boni = new HashSet<String>();
         boni = prefs.getStringSet("boni", boni);
-        for(String bonus : boni){
+        for (String bonus : boni) {
             String accessPoint = prefs.getString(bonus, "");
-            if(accessPoint!=""){
+            if (!accessPoint.equals("")) {
                 map.put(bonus, accessPoint);
             }
         }
-
+        Log.i("Map: ", map.toString());
         return map;
     }
 

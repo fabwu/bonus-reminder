@@ -41,6 +41,5 @@ public class NewBonusActivity extends Activity {
                 finish();
             }
         });
-
     }
 }

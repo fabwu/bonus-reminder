@@ -8,12 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,7 +18,7 @@ import java.util.Set;
 /**
  * Created by Jonas on 07.05.2015.
  */
-public class EditBonusActivity extends Activity{
+public class EditBonusActivity extends Activity {
     String bonusName;
 
     @Override
@@ -40,7 +35,7 @@ public class EditBonusActivity extends Activity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditBonusActivity.this, NewAccessPointActivity.class);
-                intent.putExtra("selected_bonus",bonusName);
+                intent.putExtra("selected_bonus", bonusName);
                 startActivity(intent);
             }
         });
@@ -54,7 +49,7 @@ public class EditBonusActivity extends Activity{
         Set<String> accessPoints = getAccessPoints();
 
         List<String> list = new ArrayList<String>(accessPoints);
-        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_expandable_list_item_1, list){
+        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_expandable_list_item_1, list) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -64,11 +59,11 @@ public class EditBonusActivity extends Activity{
             }
         };
 
-        ListView listView = (ListView)findViewById(R.id.access_point_list);
+        ListView listView = (ListView) findViewById(R.id.access_point_list);
         listView.setAdapter(adapter);
     }
 
-    private Set<String> getAccessPoints(){
+    private Set<String> getAccessPoints() {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final SharedPreferences.Editor editor = prefs.edit();
         Set<String> accessPoints = new HashSet<String>();
