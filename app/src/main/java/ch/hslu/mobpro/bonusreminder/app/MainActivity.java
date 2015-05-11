@@ -21,7 +21,9 @@ import java.util.Set;
 
 
 public class MainActivity extends Activity {
-    Set<String> boni = new HashSet<String>();
+    public static final String BONUS_KEY = "boni";
+
+    private SharedPreferences prefs;
 
 
     @Override
@@ -29,25 +31,37 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setDefaultValues();
-
-        Button newBonusButton = (Button) findViewById(R.id.new_bonus_button);
-        newBonusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NewBonusActivity.class);
-                startActivity(intent);
-            }
-        });
+        fillBonusList();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        boni = getBoni();
 
-        List<String> list = new ArrayList<String>(boni);
-        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_expandable_list_item_1, list) {
+        fillBonusList();
+    }
+
+    public void startNewBonusActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, NewBonusActivity.class);
+        startActivity(intent);
+    }
+
+
+    private void fillBonusList() {
+        List<String> bonusList = new ArrayList<String>(getBoni());
+        ListAdapter listAdapter = getListAdapter(bonusList);
+        setListView(listAdapter);
+    }
+
+    private Set<String> getBoni() {
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Set<String> boni = new HashSet<String>();
+        boni = prefs.getStringSet(BONUS_KEY, boni);
+        return boni;
+    }
+
+    private ListAdapter getListAdapter(List<String> list) {
+        return new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_expandable_list_item_1, list) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -56,38 +70,20 @@ public class MainActivity extends Activity {
                 return view;
             }
         };
+    }
 
+    private void setListView(ListAdapter listAdapter) {
         ListView listView = (ListView) findViewById(R.id.boni_list);
-        listView.setAdapter(adapter);
+        listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String selectedBonus = new ArrayList<String>(boni).get(i);
+                String selectedBonus = (String) adapterView.getItemAtPosition(i);
                 Intent intent = new Intent(MainActivity.this, EditBonusActivity.class);
                 intent.putExtra("selected_bonus", selectedBonus);
                 startActivity(intent);
             }
         });
-    }
-
-    private void setDefaultValues() {
-        boni.add("STUcard");
-        boni.add("McDonalds Gutschein");
-        saveBoni(boni);
-    }
-
-    private void saveBoni(Set<String> boni) {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final SharedPreferences.Editor editor = prefs.edit();
-        editor.putStringSet("boni", boni);
-        editor.apply();
-    }
-
-    private Set<String> getBoni() {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Set<String> boni = new HashSet<String>();
-        boni = prefs.getStringSet("boni", boni);
-        return boni;
     }
 
     @Override
@@ -101,15 +97,14 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
 
         if (id == R.id.start_scan) {
-            startScan();
+            startWifiScan();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-
-    private void startScan() {
+    private void startWifiScan() {
         WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         wifiManager.startScan();
     }

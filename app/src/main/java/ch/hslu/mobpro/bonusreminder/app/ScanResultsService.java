@@ -63,7 +63,7 @@ public class ScanResultsService extends Service {
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Set<String> bonusSet = new HashSet<String>();
-        bonusSet = prefs.getStringSet("boni", bonusSet);
+        bonusSet = prefs.getStringSet(MainActivity.BONUS_KEY, bonusSet);
         for (String bonus : bonusSet) {
             String ssid = prefs.getString(bonus, "");
             if (!ssid.equals("")) {
